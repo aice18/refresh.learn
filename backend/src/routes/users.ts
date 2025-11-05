@@ -36,7 +36,7 @@ router.put('/:id', protect, updateUserValidation, asyncHandler(async (req: AuthR
         
         if (req.body.plan) {
             user.plan = req.body.plan;
-            const allSteps = user.plan.weeks.flatMap(w => w.steps);
+            const allSteps = user?.plan?.weeks?.flatMap(w => w.steps) || [];
             if (allSteps.length > 0) {
                 const completedSteps = allSteps.filter(s => s.completed).length;
                 user.planProgress = Math.round((completedSteps / allSteps.length) * 100);
